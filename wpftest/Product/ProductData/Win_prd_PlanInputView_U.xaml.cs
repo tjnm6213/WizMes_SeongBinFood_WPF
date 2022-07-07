@@ -767,13 +767,12 @@ namespace WizMes_SeongBinFood
         //저장
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            if (SaveData())
-            {
-                using (Loading lw = new Loading(beSave))
-                {
+         
+             using (Loading lw = new Loading(beSave))
+             {
                     lw.ShowDialog();
                 }
-            }
+            
         }
 
         private void beSave()
