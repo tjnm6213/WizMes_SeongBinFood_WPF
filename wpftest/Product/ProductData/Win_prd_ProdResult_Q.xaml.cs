@@ -55,6 +55,8 @@ namespace WizMes_SeongBinFood
 
             DatePickerFromDateSearch.SelectedDate = DateTime.Today;
             DatePickerToDateSearch.SelectedDate = DateTime.Today;
+
+            chkPlanComplete.IsChecked = true; 
         }
 
         #region 추가, 수정 // 조회, 저장완료, 취소
@@ -189,6 +191,115 @@ namespace WizMes_SeongBinFood
         }
         #endregion
 
+        #region 검색조건
+        //거래처
+        private void lblCustom_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (chkCustom.IsChecked == true) { chkCustom.IsChecked = false; }
+            else { chkCustom.IsChecked = true; }
+
+            chkCustomClick();
+        }
+
+        //거래처 클릭시
+        private void chkCustom_Click(object sender, RoutedEventArgs e)
+        {
+            chkCustomClick();
+        }
+
+        //거래처 이벤트
+        private void chkCustomClick()
+        {
+            if (chkCustom.IsChecked == true)
+            {
+                txtCustomSeach.IsEnabled = true;
+                btnPfCustom.IsEnabled = true;
+                txtCustomSeach.Focus();
+            }
+            else
+            {
+                txtCustomSeach.IsEnabled = false;
+                btnPfCustom.IsEnabled = false;
+            }
+        }
+
+        //거래처
+        private void txtCustomSeach_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                //pf.ReturnCode(txtCustomSeach, 0, "");
+                MainWindow.pf.ReturnCode(txtCustomSeach, (int)Defind_CodeFind.DCF_CUSTOM, "");
+            }
+        }
+
+        //거래처
+        private void btnPfCustom_Click(object sender, RoutedEventArgs e)
+        {
+            //pf.ReturnCode(txtCustomSeach, 0, "");
+            MainWindow.pf.ReturnCode(txtCustomSeach, (int)Defind_CodeFind.DCF_CUSTOM, "");
+        }
+
+        //품번
+        private void LabelBuyerArticleNoSearch_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (CheckBoxBuyerArticleNoSearch.IsChecked == true)
+            {
+                CheckBoxBuyerArticleNoSearch.IsChecked = false;
+            }
+            else
+            {
+                CheckBoxBuyerArticleNoSearch.IsChecked = true;
+            }
+        }
+
+        //품번 체크시 
+        private void CheckBoxBuyerArticleNoSearch_Checked(object sender, RoutedEventArgs e)
+        {
+            TextBoxBuyerArticleNoSearch.IsEnabled = true;
+            ButtonBuyerArticleNoSearch.IsEnabled = true;
+            TextBoxBuyerArticleNoSearch.Focus();
+        }
+
+        //품번 언체크
+        private void CheckBoxBuyerArticleNoSearch_Unchecked(object sender, RoutedEventArgs e)
+        {
+            TextBoxBuyerArticleNoSearch.IsEnabled = false;
+            ButtonBuyerArticleNoSearch.IsEnabled = false;
+        }
+
+        //품번 엔터키 
+        private void TextBoxBuyerArticleNoSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                MainWindow.pf.ReturnCode(TextBoxBuyerArticleNoSearch, 76, TextBoxBuyerArticleNoSearch.Text);
+            }
+        }
+
+        //품번 플러스파인더 클릭
+        private void ButtonBuyerArticleNoSearch_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow.pf.ReturnCode(TextBoxBuyerArticleNoSearch, 76, TextBoxBuyerArticleNoSearch.Text);
+        }
+
+        //해상도가 낮아지면 체크박스 클릭이 어려워지므로 라벨 클릭으로 대체할수 있게 한다.
+        private void lblTheEnd_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (chkTheEnd.IsChecked == true) { chkTheEnd.IsChecked = false; }
+            else { chkTheEnd.IsChecked = true; }
+        }
+
+        //해상도가 낮아지면 체크박스 클릭이 어려워지므로 라벨 클릭으로 대체할수 있게 한다.
+        private void lblPlanComplete_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (chkPlanComplete.IsChecked == true) { chkPlanComplete.IsChecked = false; }
+            else { chkPlanComplete.IsChecked = true; }
+        }
+
+
+        #endregion
+
         #region 상단 버튼
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
@@ -243,7 +354,7 @@ namespace WizMes_SeongBinFood
             SaveUpdateMode();
 
             ComboBoxDayOrNight.SelectedIndex = 0;
-            DatePickerProdDate.SelectedDate = DateTime.Now;
+            DatePickerProdDate.SelectedDate = null;
             TextBoxProdScanTime.Text = DateTime.Now.ToString("HH:mm:ss");
             ComboBoxProcess.SelectedIndex = 1;
             //DatePickerWorkStartDate.SelectedDate = DatePickerProdDate.SelectedDate;
@@ -299,14 +410,14 @@ namespace WizMes_SeongBinFood
                 sqlParameter.Add("ChkDate", CheckBoxDateSearch.IsChecked == true ? 1 : 0);
                 sqlParameter.Add("SDate", CheckBoxDateSearch.IsChecked == true && DatePickerFromDateSearch.SelectedDate != null ? DatePickerFromDateSearch.SelectedDate.Value.ToString("yyyyMMdd") : "");
                 sqlParameter.Add("EDate", CheckBoxDateSearch.IsChecked == true && DatePickerToDateSearch.SelectedDate != null ? DatePickerToDateSearch.SelectedDate.Value.ToString("yyyyMMdd") : "");
-                sqlParameter.Add("ChkCustomID", 0);
-                sqlParameter.Add("CustomID", "");
-                sqlParameter.Add("ChkArticleID", 0);
-                sqlParameter.Add("ArticleID", "");
+                sqlParameter.Add("ChkCustomID", chkCustom.IsChecked == true ? 1 : 0);
+                sqlParameter.Add("CustomID", chkCustom.IsChecked == true && txtCustomSeach.Tag != null ? txtCustomSeach.Tag.ToString() : "");
+                sqlParameter.Add("ChkArticleID", CheckBoxBuyerArticleNoSearch.IsChecked == true ? 1 : 0);
+                sqlParameter.Add("ArticleID", CheckBoxBuyerArticleNoSearch.IsChecked == true ? (TextBoxBuyerArticleNoSearch.Tag != null ? TextBoxBuyerArticleNoSearch.Tag.ToString() : "") : "");
                 sqlParameter.Add("ChkOrder", 0);
                 sqlParameter.Add("Order", "");
-                sqlParameter.Add("ChkIncPlanComplete", 1);
-                sqlParameter.Add("ChkTheEnd", 0);
+                sqlParameter.Add("ChkIncPlanComplete", chkPlanComplete.IsChecked == true ? 1 : 0); //지시완료
+                sqlParameter.Add("ChkTheEnd", chkTheEnd.IsChecked == true ? 1 : 0); //지시마감
                 sqlParameter.Add("ChkBuyerArticleNo", 0);
                 sqlParameter.Add("BuyerArticleNoID", "");
 
@@ -401,7 +512,8 @@ namespace WizMes_SeongBinFood
                 Dictionary<string, object> sqlParameter = new Dictionary<string, object>();
                 sqlParameter.Clear();
                 sqlParameter.Add("InstID", strInstID);
-                sqlParameter.Add("nchkWeek", 1);
+                sqlParameter.Add("nchkWeek", DatePickerProdDate.SelectedDate == null ? "0" : "1");
+                sqlParameter.Add("prodDate", DatePickerProdDate.SelectedDate == null ? "" : DatePickerProdDate.SelectedDate.Value.ToString("yyyyMMdd")) ;
 
                 DataSet ds = DataStore.Instance.ProcedureToDataSet("xp_prd_sWkResultForJasook", sqlParameter, false);
 
@@ -913,6 +1025,12 @@ namespace WizMes_SeongBinFood
 
         private void DatePickerProdDate_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            var selectedPlanData = DataGridPlan.SelectedItem as Win_prd_ProdResult_Q_CodeView;
+            if (selectedPlanData != null && selectedPlanData.InstID != null)
+            {
+                FillGrid_ArticleChild(selectedPlanData.InstID);
+            }
+
             DatePickerWorkStartDate.SelectedDate = DatePickerProdDate.SelectedDate;
             TextBoxWorkStartTime.Text = TextBoxProdScanTime.Text;
             DatePickerWorkEndDate.SelectedDate = DatePickerProdDate.SelectedDate;
@@ -961,7 +1079,7 @@ namespace WizMes_SeongBinFood
             }
         }
 
-        
+      
     }
 
     #region CodeView

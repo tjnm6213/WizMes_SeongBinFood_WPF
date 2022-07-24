@@ -264,6 +264,49 @@ namespace WizMes_SeongBinFood
             MainWindow.pf.ReturnCode(txtCustom, (int)Defind_CodeFind.DCF_CUSTOM, "");
         }
 
+        //품번
+        private void LabelBuyerArticleNoSearch_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (CheckBoxBuyerArticleNoSearch.IsChecked == true)
+            {
+                CheckBoxBuyerArticleNoSearch.IsChecked = false;
+            }
+            else
+            {
+                CheckBoxBuyerArticleNoSearch.IsChecked = true;
+            }
+        }
+
+        //품번
+        private void CheckBoxBuyerArticleNoSearch_Checked(object sender, RoutedEventArgs e)
+        {
+            TextBoxBuyerArticleNoSearch.IsEnabled = true;
+            ButtonBuyerArticleNoSearch.IsEnabled = true;
+            TextBoxBuyerArticleNoSearch.Focus();
+        }
+
+        //품번
+        private void CheckBoxBuyerArticleNoSearch_Unchecked(object sender, RoutedEventArgs e)
+        {
+            TextBoxBuyerArticleNoSearch.IsEnabled = false;
+            ButtonBuyerArticleNoSearch.IsEnabled = false;
+        }
+
+        //품번
+        private void TextBoxBuyerArticleNoSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                MainWindow.pf.ReturnCode(TextBoxBuyerArticleNoSearch, 76, TextBoxBuyerArticleNoSearch.Text);
+            }
+        }
+
+        //품번
+        private void ButtonBuyerArticleNoSearch_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow.pf.ReturnCode(TextBoxBuyerArticleNoSearch, 76, TextBoxBuyerArticleNoSearch.Text);
+        }
+
         //품명
         private void lblArticle_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
@@ -1637,43 +1680,7 @@ namespace WizMes_SeongBinFood
             }
         }
 
-        private void LabelBuyerArticleNoSearch_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            if(CheckBoxBuyerArticleNoSearch.IsChecked == true)
-            {
-                CheckBoxBuyerArticleNoSearch.IsChecked = false;
-            }
-            else
-            {
-                CheckBoxBuyerArticleNoSearch.IsChecked = true;
-            }
-        }
-
-        private void CheckBoxBuyerArticleNoSearch_Checked(object sender, RoutedEventArgs e)
-        {
-            TextBoxBuyerArticleNoSearch.IsEnabled = true;
-            ButtonBuyerArticleNoSearch.IsEnabled = true;
-            TextBoxBuyerArticleNoSearch.Focus();
-        }
-
-        private void CheckBoxBuyerArticleNoSearch_Unchecked(object sender, RoutedEventArgs e)
-        {
-            TextBoxBuyerArticleNoSearch.IsEnabled = false;
-            ButtonBuyerArticleNoSearch.IsEnabled = false;
-        }
-
-        private void TextBoxBuyerArticleNoSearch_KeyDown(object sender, KeyEventArgs e)
-        {
-            if(e.Key == Key.Enter)
-            {
-                MainWindow.pf.ReturnCode(TextBoxBuyerArticleNoSearch, 76, TextBoxBuyerArticleNoSearch.Text);
-            }
-        }
-
-        private void ButtonBuyerArticleNoSearch_Click(object sender, RoutedEventArgs e)
-        {
-            MainWindow.pf.ReturnCode(TextBoxBuyerArticleNoSearch, 76, TextBoxBuyerArticleNoSearch.Text);
-        }
+       
     }
 
     #region CodeView

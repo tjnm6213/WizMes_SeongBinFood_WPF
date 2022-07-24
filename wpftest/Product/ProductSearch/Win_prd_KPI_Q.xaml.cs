@@ -39,79 +39,109 @@ namespace WizMes_SeongBinFood
         }
 
         #region 상단 검색조건
-        //전년
-        private void ButtonLastYear_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                if (DatePickerStartDateSearch.SelectedDate != null)
-                {
-                    DatePickerStartDateSearch.SelectedDate = DatePickerStartDateSearch.SelectedDate.Value.AddYears(-1);
-                }
-                else
-                {
-                    DatePickerStartDateSearch.SelectedDate = DateTime.Today.AddDays(-1);
-                }
-            }
-            catch (Exception ee)
-            {
-                MessageBox.Show("오류지점 - " + ee.ToString());
-            }
-        }
 
-        //전월
         private void ButtonLastMonth_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                if (DatePickerStartDateSearch.SelectedDate != null)
-                {
-                    DateTime FirstDayOfMonth = DatePickerStartDateSearch.SelectedDate.Value.AddDays(-(DatePickerStartDateSearch.SelectedDate.Value.Day - 1));
-                    DateTime FirstDayOfLastMonth = FirstDayOfMonth.AddMonths(-1);
+            DateTime[] SearchDate = lib.BringLastMonthContinue(DatePickerStartDateSearch.SelectedDate.Value);
 
-                    DatePickerStartDateSearch.SelectedDate = FirstDayOfLastMonth;
-                }
-                else
-                {
-                    DateTime FirstDayOfMonth = DateTime.Today.AddDays(-(DateTime.Today.Day - 1));
-
-                    DatePickerStartDateSearch.SelectedDate = FirstDayOfMonth;
-                }
-            }
-            catch (Exception ee)
-            {
-                MessageBox.Show("오류지점 - " + ee.ToString());
-            }
+            DatePickerStartDateSearch.SelectedDate = SearchDate[0];
+            DatePickerEndDateSearch.SelectedDate = SearchDate[1];
         }
 
-        //금년
-        private void ButtonThisYear_Click(object sender, RoutedEventArgs e)
+        private void ButtonYesterDay_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                if (DatePickerStartDateSearch.SelectedDate != null)
-                {
-                    DatePickerStartDateSearch.SelectedDate = lib.BringThisYearDatetimeFormat()[0];
-                }
-            }
-            catch (Exception ee)
-            {
-                MessageBox.Show("오류지점 - " + ee.ToString());
-            }
+            DateTime[] SearchDate = lib.BringLastDayDateTimeContinue(DatePickerEndDateSearch.SelectedDate.Value);
+
+            DatePickerStartDateSearch.SelectedDate = SearchDate[0];
+            DatePickerEndDateSearch.SelectedDate = SearchDate[1];
         }
 
-        //금월
         private void ButtonThisMonth_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                DatePickerStartDateSearch.SelectedDate = lib.BringThisMonthDatetimeList()[0];
-            }
-            catch (Exception ee)
-            {
-                MessageBox.Show("오류지점 - " + ee.ToString());
-            }
+            DatePickerStartDateSearch.SelectedDate = lib.BringThisMonthDatetimeList()[0];
+            DatePickerEndDateSearch.SelectedDate = lib.BringThisMonthDatetimeList()[1];
         }
+
+        private void ButtonToday_Click(object sender, RoutedEventArgs e)
+        {
+            DatePickerStartDateSearch.SelectedDate = DateTime.Today;
+            DatePickerEndDateSearch.SelectedDate = DateTime.Today;
+        }
+        ////전년
+        //private void ButtonLastYear_Click(object sender, RoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        if (DatePickerStartDateSearch.SelectedDate != null)
+        //        {
+        //            DatePickerStartDateSearch.SelectedDate = DatePickerStartDateSearch.SelectedDate.Value.AddYears(-1);
+        //            DatePickerEndDateSearch.SelectedDate = DatePickerEndDateSearch.SelectedDate.Value.AddYears(-1);
+
+        //        }
+        //        else
+        //        {
+        //            DatePickerStartDateSearch.SelectedDate = DateTime.Today.AddDays(-1);
+        //        }
+        //    }
+        //    catch (Exception ee)
+        //    {
+        //        MessageBox.Show("오류지점 - " + ee.ToString());
+        //    }
+        //}
+
+        ////전월
+        //private void ButtonLastMonth_Click(object sender, RoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        if (DatePickerStartDateSearch.SelectedDate != null)
+        //        {
+        //            DateTime FirstDayOfMonth = DatePickerStartDateSearch.SelectedDate.Value.AddDays(-(DatePickerStartDateSearch.SelectedDate.Value.Day - 1));
+        //            DateTime FirstDayOfLastMonth = FirstDayOfMonth.AddMonths(-1);
+
+        //            DatePickerStartDateSearch.SelectedDate = FirstDayOfLastMonth;
+        //        }
+        //        else
+        //        {
+        //            DateTime FirstDayOfMonth = DateTime.Today.AddDays(-(DateTime.Today.Day - 1));
+
+        //            DatePickerStartDateSearch.SelectedDate = FirstDayOfMonth;
+        //        }
+        //    }
+        //    catch (Exception ee)
+        //    {
+        //        MessageBox.Show("오류지점 - " + ee.ToString());
+        //    }
+        //}
+
+        ////금년
+        //private void ButtonThisYear_Click(object sender, RoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        if (DatePickerStartDateSearch.SelectedDate != null)
+        //        {
+        //            DatePickerStartDateSearch.SelectedDate = lib.BringThisYearDatetimeFormat()[0];
+        //        }
+        //    }
+        //    catch (Exception ee)
+        //    {
+        //        MessageBox.Show("오류지점 - " + ee.ToString());
+        //    }
+        //}
+
+        ////금월
+        //private void ButtonThisMonth_Click(object sender, RoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        DatePickerStartDateSearch.SelectedDate = lib.BringThisMonthDatetimeList()[0];
+        //    }
+        //    catch (Exception ee)
+        //    {
+        //        MessageBox.Show("오류지점 - " + ee.ToString());
+        //    }
+        //}
 
         #endregion
 
@@ -170,7 +200,7 @@ namespace WizMes_SeongBinFood
 
                     if (dt.Rows.Count == 0)
                     {
-
+                        MessageBox.Show("조회된 데이터가 없습니다.");
                     }
                     else
                     {
@@ -187,7 +217,7 @@ namespace WizMes_SeongBinFood
                                 Article = dr["Article"].ToString(),
                                 WorkQty = Convert.ToDouble(dr["WorkQty"].ToString()),
                                 WorkTime = dr["WorkTime"].ToString(),
-                                WorkQtyPerHour = Convert.ToDouble(dr["WorkQtyPerHour"].ToString()),
+                                WorkQtyPerHour = stringFormatN2(dr["WorkQtyPerHour"]),
                                 WorkMan = dr["WorkMan"].ToString(),
                                 Gonsu = dr["Gonsu"].ToString(),
                                 OrderQty = dr["OrderQty"].ToString(),
@@ -410,7 +440,13 @@ namespace WizMes_SeongBinFood
             }
         }
 
-        
+        // 천마리 콤마, 소수점 두자리
+        private string stringFormatN2(object obj)
+        {
+            return string.Format("{0:N2}", obj);
+        }
+
+
     }
 
     #region CodeView
@@ -428,7 +464,7 @@ namespace WizMes_SeongBinFood
         public string Article { get; internal set; }
         public double WorkQty { get; internal set; }
         public string WorkTime { get; internal set; }
-        public double WorkQtyPerHour { get; internal set; }
+        public string WorkQtyPerHour { get; internal set; }
         public string WorkMan { get; set; }
         public string Gonsu { get; set; }
         public string OrderQty { get; set; }

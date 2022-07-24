@@ -59,7 +59,24 @@
                             Style="{DynamicResource DatePickerSearch}" />
             </Grid>
 
-            <Grid Grid.Column="1" Grid.Row="2" Visibility="Hidden">
+            <Grid Grid.Column="1" Grid.Row="2" x:Name="GridDateSetButton" IsEnabled="True" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button x:Name="ButtonLastMonth" Grid.Column="0" Content="전월" 
+                        Click="ButtonLastMonth_Click"/>
+                <Button x:Name="ButtonYesterDay" Grid.Column="1" Content="전일" 
+                        Click="ButtonYesterDay_Click"/>
+                <Button x:Name="ButtonThisMonth" Grid.Column="2" Content="금월" 
+                        Click="ButtonThisMonth_Click" />
+                <Button x:Name="ButtonToday" Grid.Column="3" Content="금일" 
+                        Click="ButtonToday_Click"/>
+            </Grid>
+
+            <!--<Grid Grid.Column="1" Grid.Row="2" Visibility="Hidden">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
@@ -86,7 +103,7 @@
                         Click="ButtonThisMonth_Click">
                     <TextBlock Text="금월" Margin="0" ></TextBlock>
                 </Button>
-            </Grid>
+            </Grid>-->
             
             <Grid Grid.Column="2" Grid.Row="0" Visibility="Visible">
                 <Grid.ColumnDefinitions>
@@ -202,15 +219,15 @@
                       Style="{DynamicResource DataGridSet1}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="GBN" Width="0" MinWidth="0" Binding="{Binding gbn}" FontSize="20" />
-                        <DataGridTextColumn Header="품번" Width="auto" MinWidth="200" Binding="{Binding ArticleNo}" 
+                        <DataGridTextColumn Header="품번" Width="*" MinWidth="200" Binding="{Binding ArticleNo}" 
                                         ElementStyle="{StaticResource DataGridCellLeft}" FontSize="20" />
-                        <DataGridTextColumn Header="품명" Width="auto" MinWidth="200" Binding="{Binding Article}" Visibility="Hidden"
+                        <DataGridTextColumn Header="품명" Width="*" MinWidth="200" Binding="{Binding Article}" Visibility="Hidden"
                                         ElementStyle="{StaticResource DataGridCellLeft}" FontSize="20" />
-                        <DataGridTextColumn Header="생산수량" Width="auto" MinWidth="150" Binding="{Binding WorkQty, StringFormat='#,##0'}" 
+                        <DataGridTextColumn Header="생산수량" Width="*" MinWidth="150" Binding="{Binding WorkQty, StringFormat='#,##0'}" 
                                         ElementStyle="{StaticResource DataGridCellRight}" FontSize="20" />
-                        <DataGridTextColumn Header="작업시간" MinWidth="150" Width="auto" Binding="{Binding WorkTime}" 
+                        <DataGridTextColumn Header="작업시간" MinWidth="150" Width="*" Binding="{Binding WorkTime}" 
                                         ElementStyle="{StaticResource DataGridCellRight}" FontSize="20" />
-                        <DataGridTextColumn Header="시간당생산량" MinWidth="150" Width="auto" Binding="{Binding WorkQtyPerHour, StringFormat='#,##0'}" 
+                        <DataGridTextColumn Header="시간당생산량" MinWidth="150" Width="*" Binding="{Binding WorkQtyPerHour}" 
                                         ElementStyle="{StaticResource DataGridCellRight}" FontSize="20" />
                     </DataGrid.Columns>
                 </DataGrid>
@@ -220,13 +237,13 @@
                 <DataGrid x:Name="dgdOut" Grid.Row="1" IsReadOnly="True"
                       Style="{DynamicResource DataGridSet1}">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="품번" Width="auto" MinWidth="200" Binding="{Binding ArticleNo}" 
-                                        ElementStyle="{StaticResource DataGridCellLeft}" FontSize="20" />
-                        <DataGridTextColumn Header="검사수량" Width="auto" MinWidth="200" Binding="{Binding DefectWorkQty, StringFormat='#,##0'}" 
+                        <DataGridTextColumn Header="품번" Width="*" MinWidth="200" Binding="{Binding ArticleNo}" 
+                                        ElementStyle="{StaticResource DataGridCellLeft}" FontSize="20" Visibility="Visible"/>
+                        <DataGridTextColumn Header="검사수량" Width="*" MinWidth="200" Binding="{Binding DefectWorkQty, StringFormat='#,##0'}" 
                                         ElementStyle="{StaticResource DataGridCellRight}" FontSize="20" />
-                        <DataGridTextColumn Header="불량수량" Width="auto" MinWidth="200" Binding="{Binding DefectQty, StringFormat='#,##0'}" 
+                        <DataGridTextColumn Header="불량수량" Width="*" MinWidth="200" Binding="{Binding DefectQty, StringFormat='#,##0'}" 
                                         ElementStyle="{StaticResource DataGridCellRight}" FontSize="20" />
-                        <DataGridTextColumn Header="불량률" Width="auto" MinWidth="200" Binding="{Binding DefectRate, StringFormat='#,##0.#'}" 
+                        <DataGridTextColumn Header="불량률" Width="*" MinWidth="200" Binding="{Binding DefectRate, StringFormat='#,##0.#'}" 
                                         ElementStyle="{StaticResource DataGridCellRight}" FontSize="20" />
                     </DataGrid.Columns>
                 </DataGrid>

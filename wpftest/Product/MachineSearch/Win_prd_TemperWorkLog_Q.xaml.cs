@@ -47,6 +47,7 @@ namespace WizMes_SeongBinFood
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            CheckBoxDateSearch.IsChecked = true;
             lib.UiLoading(sender);
             SetComboBox();
             DatePickerStartDateSearch.SelectedDate = DateTime.Today;
@@ -179,6 +180,42 @@ namespace WizMes_SeongBinFood
                 MessageBox.Show("오류지점 - " + ee.ToString());
             }
         }
+        #endregion
+
+        #region 날짜 관련 이벤트
+
+        //전일
+        private void btnYesterDay_Click(object sender, RoutedEventArgs e)
+        {
+            DateTime[] SearchDate = lib.BringLastDayDateTimeContinue(DatePickerEndDateSearch.SelectedDate.Value);
+
+            DatePickerStartDateSearch.SelectedDate = SearchDate[0];
+            DatePickerEndDateSearch.SelectedDate = SearchDate[1];
+        }
+
+        //금일
+        private void btnToday_Click(object sender, RoutedEventArgs e)
+        {
+            DatePickerStartDateSearch.SelectedDate = DateTime.Today;
+            DatePickerEndDateSearch.SelectedDate = DateTime.Today;
+        }
+
+        // 전월 버튼 클릭 이벤트
+        private void btnLastMonth_Click(object sender, RoutedEventArgs e)
+        {
+            DateTime[] SearchDate = lib.BringLastMonthContinue(DatePickerStartDateSearch.SelectedDate.Value);
+
+            DatePickerStartDateSearch.SelectedDate = SearchDate[0];
+            DatePickerEndDateSearch.SelectedDate = SearchDate[1];
+        }
+
+        // 금월 버튼 클릭 이벤트
+        private void btnThisMonth_Click(object sender, RoutedEventArgs e)
+        {
+            DatePickerStartDateSearch.SelectedDate = lib.BringThisMonthDatetimeList()[0];
+            DatePickerEndDateSearch.SelectedDate = lib.BringThisMonthDatetimeList()[1];
+        }
+
         #endregion
 
         #region 버튼 모음
@@ -397,6 +434,9 @@ namespace WizMes_SeongBinFood
 
                             DataGridMain.Items.Add(WPTQC);
                         }
+                    }  else
+                    {
+                        MessageBox.Show("조회된 데이터가 없습니다.");
                     }
                 }
 

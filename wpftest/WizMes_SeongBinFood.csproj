@@ -495,9 +495,6 @@
     <Compile Include="Product\ProductSearch\Win_Prd_ProdResult_U.xaml.cs">
       <DependentUpon>Win_Prd_ProdResult_U.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Product\ProductSearch\Win_prd_HygieneCheck.xaml.cs">
-      <DependentUpon>Win_prd_HygieneCheck.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Product\ProductSearch\Win_prd_RemainMove_Q.xaml.cs">
       <DependentUpon>Win_prd_RemainMove_Q.xaml</DependentUpon>
     </Compile>
@@ -1023,10 +1020,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Product\ProductSearch\Win_Prd_ProdResult_U.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Product\ProductSearch\Win_prd_HygieneCheck.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

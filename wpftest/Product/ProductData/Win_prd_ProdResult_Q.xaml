@@ -78,6 +78,110 @@
                         Click="ButtonToday_Click"/>
             </Grid>
 
+            <Grid Grid.Column="2" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="75*" />
+                    <ColumnDefinition Width="90*" />
+                    <ColumnDefinition Width="15*" />
+                </Grid.ColumnDefinitions>
+                <Label x:Name="lblCustom" Grid.Column="0" 
+                       Style="{DynamicResource LabelSearch}"
+                       MouseLeftButtonDown="lblCustom_MouseLeftButtonDown" >
+                    <StackPanel Style="{DynamicResource StackPanelInLabel}">
+                        <Viewbox Style="{DynamicResource ViewBoxSetMaxMinHeight}">
+                            <CheckBox x:Name="chkCustom" Click="chkCustom_Click" VerticalAlignment="Center"/>
+                        </Viewbox>
+                        <Viewbox Style="{DynamicResource ViewBoxSetMaxMinHeight}" >
+                            <TextBlock Text="거 래 처" 
+                                       Style="{DynamicResource TextBlockInViewBoxSearch}"/>
+                        </Viewbox>
+                    </StackPanel>
+                </Label>
+                <TextBox x:Name="txtCustomSeach" Grid.Column="1" 
+                         Style="{DynamicResource TextBoxSearch}"
+                         KeyDown="txtCustomSeach_KeyDown"/>
+                <Button x:Name="btnPfCustom" Grid.Column="2" Margin="1" IsEnabled="False" Click="btnPfCustom_Click">
+                    <Image Source="{DynamicResource btiPlusFind}" Style="{DynamicResource imgPlusFind}" />
+                </Button>
+            </Grid>
+
+            <Grid Grid.Column="2" Grid.Row="1" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="75*" />
+                    <ColumnDefinition Width="90*" />
+                    <ColumnDefinition Width="15*" />
+                </Grid.ColumnDefinitions>
+                <Label x:Name="LabelBuyerArticleNoSearch" Grid.Column="0" 
+                       Style="{DynamicResource LabelSearch}"
+                       MouseLeftButtonUp="LabelBuyerArticleNoSearch_MouseLeftButtonUp">
+                    <StackPanel Style="{DynamicResource StackPanelInLabel}">
+                        <Viewbox Style="{DynamicResource ViewBoxSetMaxMinHeight}">
+                            <CheckBox x:Name="CheckBoxBuyerArticleNoSearch" 
+                                      Checked="CheckBoxBuyerArticleNoSearch_Checked" 
+                                      Unchecked="CheckBoxBuyerArticleNoSearch_Unchecked" VerticalAlignment="Center"/>
+                        </Viewbox>
+                        <Viewbox Style="{DynamicResource ViewBoxSetMaxMinHeight}" >
+                            <TextBlock Text="품     번" 
+                                       Style="{DynamicResource TextBlockInViewBoxSearch}"/>
+                        </Viewbox>
+                    </StackPanel>
+                </Label>
+                <TextBox x:Name="TextBoxBuyerArticleNoSearch" Grid.Column="1" 
+                         Style="{DynamicResource TextBoxSearch}"
+                         KeyDown="TextBoxBuyerArticleNoSearch_KeyDown"/>
+                <Button x:Name="ButtonBuyerArticleNoSearch" Grid.Column="2" Margin="1" IsEnabled="False" 
+                        Click="ButtonBuyerArticleNoSearch_Click">
+                    <Image Source="{DynamicResource btiPlusFind}" />
+                </Button>
+            </Grid>
+
+            <!--마감분 포함-->
+            <Grid Grid.Row="1" Grid.Column="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100*" />
+                    <ColumnDefinition Width="65*" />
+                    <ColumnDefinition Width="15*" />
+                </Grid.ColumnDefinitions>
+                <Label x:Name="lblTheEnd" Grid.Column="0" 
+                       Style="{DynamicResource LabelSearch}"
+                       MouseLeftButtonDown="lblTheEnd_MouseLeftButtonDown">
+                    <StackPanel Style="{DynamicResource StackPanelInLabel}">
+                        <Viewbox Style="{DynamicResource ViewBoxSetMaxMinHeight}">
+                            <CheckBox x:Name="chkTheEnd" />
+                        </Viewbox>
+                        <Viewbox Style="{DynamicResource ViewBoxSetMaxMinHeight}" >
+                            <TextBlock Text="지시마감 포함" 
+                                       Style="{DynamicResource TextBlockInViewBoxSearch}"/>
+                        </Viewbox>
+                    </StackPanel>
+                </Label>
+            </Grid>
+
+            <!--지시완료분 포함-->
+            <Grid Grid.Row="0" Grid.Column="3" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100*" />
+                    <ColumnDefinition Width="65*" />
+                    <ColumnDefinition Width="15*" />
+                </Grid.ColumnDefinitions>
+                <Label x:Name="lblPlanComplete" Grid.Column="0" 
+                       Style="{DynamicResource LabelSearch}"
+                       MouseLeftButtonDown="lblPlanComplete_MouseLeftButtonDown">
+                    <StackPanel Style="{DynamicResource StackPanelInLabel}">
+                        <Viewbox Style="{DynamicResource ViewBoxSetMaxMinHeight}">
+                            <CheckBox x:Name="chkPlanComplete" 
+                                      VerticalAlignment="Center" />
+                        </Viewbox>
+                        <Viewbox Style="{DynamicResource ViewBoxSetMaxMinHeight}" >
+                            <TextBlock Text="지시완료 포함" 
+                                       Style="{DynamicResource TextBlockInViewBoxSearch}"/>
+                        </Viewbox>
+                    </StackPanel>
+                </Label>
+            </Grid>
+            
+
+
             <Grid Grid.Column="4" Grid.RowSpan="4">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
@@ -366,7 +470,7 @@
                         <ComboBox x:Name="ComboBoxDayOrNight" Grid.Row="0" Grid.Column="4" 
                                   Style="{DynamicResource ComboBoxInputString}"
                                   IsEnabled="False" 
-                                  local:FocusAdvancement.AdvancesByEnterKey="True"/>
+                                  />
 
                         <Label Grid.Row="1" Grid.Column="3" ToolTip="설비로 제품을 한개 생산하는 시간 + 다음 제품을 생산하기 전 대기시간" ToolTipService.ShowDuration="2000"
                                Style="{DynamicResource LabelInputArea}">
@@ -379,7 +483,7 @@
                                  Style="{DynamicResource InputCommaZeroTextBox}"
                                  IsEnabled="False" 
                                  PreviewTextInput="TextBox_CheckIsNumeric"
-                                 local:FocusAdvancement.AdvancesByEnterKey="True"/>
+                                 />
 
                         <Label Grid.Row="2" Grid.Column="3" 
                                Style="{DynamicResource LabelInputArea}">
@@ -392,7 +496,7 @@
                                  Style="{DynamicResource InputCommaZeroTextBox}"
                                  IsEnabled="False" 
                                  PreviewTextInput="TextBox_CheckIsNumeric"
-                                 local:FocusAdvancement.AdvancesByEnterKey="True"/>
+                                 />
 
                         <Label Grid.Row="3" Grid.Column="3" 
                                Style="{DynamicResource LabelInputArea}">
@@ -404,7 +508,7 @@
                         <DatePicker Grid.Column="4" Grid.Row="3" x:Name="DatePickerProdDate" 
                                     IsEnabled="False"
                                     Style="{DynamicResource DatePickerInputArea}" SelectedDateChanged="DatePickerProdDate_SelectionChanged"
-                                    local:FocusAdvancement.AdvancesByEnterKey="True"/>
+                                    />
                         
                         <TextBox Grid.Column="5" Grid.Row="3" x:Name="TextBoxProdScanTime" IsEnabled="False" Visibility="Hidden"
                                  Style="{DynamicResource TextBoxInputArea}" />
@@ -420,7 +524,7 @@
                                   Style="{DynamicResource ComboBoxInputString}"
                                   IsEnabled="False"
                                   SelectionChanged="ComboBoxProcess_SelectionChanged"
-                                  local:FocusAdvancement.AdvancesByEnterKey="True"/>
+                                  />
 
                         <Label Grid.Row="5" Grid.Column="3" 
                                Style="{DynamicResource LabelInputArea}">
@@ -432,7 +536,7 @@
                         <ComboBox Grid.Row="5" x:Name="ComboBoxMachine" Grid.Column="4" 
                                   Style="{DynamicResource ComboBoxInputString}"
                                   IsEnabled="False" Background="White"
-                                  local:FocusAdvancement.AdvancesByEnterKey="True"/>
+                                  />
 
                         <Label Grid.Row="6" Grid.Column="3" 
                                Style="{DynamicResource LabelInputArea}">
@@ -474,7 +578,7 @@
                                  Style="{DynamicResource TextBoxInputArea}"
                                  KeyDown="TextBoxWorker_KeyDown"
                                  IsEnabled="False"
-                                 local:FocusAdvancement.AdvancesByEnterKey="True"/>
+                                 />
                         <Grid Grid.Row="6" Grid.Column="5">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="15*" />
